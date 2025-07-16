@@ -1,0 +1,63 @@
+  <div class="newsletter">
+      <p>If you would like to be notified about future projects, sign up for our email list below:</p>
+    <form id="signup_form">
+    <label>email:
+    <input type="email" id="signup_email"/>
+    </label>
+    <button type="submit" id="signup_submit">SIGN UP</button>
+    <p id="signup_result"></p>
+    </form>
+    <script>
+    const form = document.querySelector('#signup_form');
+    const input = document.querySelector('#signup_email');
+    const submit = document.querySelector('#signup_submit');
+    const result = document.querySelector('#signup_result');
+
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        const email = input.value;
+        let timezone;
+
+        try {
+           timezone = Intl.DateTimeFormat().resolvedOptions().timeZone
+        } catch(err) {}
+
+        if (!email) {
+            result.innerText = 'gotta give me something to go on :/'; 
+            return;
+        }
+
+        submit.disabled = true;
+        input.disabled = true;
+
+        fetch(new Request('https://tao-te-ching.azurewebsites.net/api/', {
+            method: 'POST',
+            mode: 'cors',
+            body: JSON.stringify({
+                email,
+                timezone
+            })
+        })).then((res) => {
+            let resultMessage = 'So sorry. Something went wrong.';
+            if (res.ok) {
+                resultMessage = 'Success! You have signed up';
+            }
+
+            result.innerText = resultMessage;
+        }, (failure) => {
+            result.innerText = 'So sorry. Something went wrong.';
+        });
+    });
+    </script>
+  </div>   
+  </div> <!-- /wrap -->
+  <footer>
+  {{ partial "foot_custom.html" . }}
+  {{ with .Site.Params.footer }}
+  <hr/>
+  {{ replace . "{Year}" now.Year | markdownify }}
+  {{ end }}
+  </footer>
+  </body>
+</html>

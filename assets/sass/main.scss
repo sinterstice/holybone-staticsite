@@ -1,0 +1,77 @@
+body {
+    background: #94903b url('super_kamiokande_2.png') top left/contain no-repeat;
+    position: relative;
+}
+
+h1 {
+    margin: 0 0 12px;
+}
+
+input {
+    appearance: none;
+    border: 4px solid ridge;
+}
+
+button {
+    appearance: none;
+    border: 4px solid ridge;
+    background: blue;
+    color: white;
+}
+
+.wrap {
+    background: #dcc2a0;
+    color: #311c00;
+    overflow: auto;
+    min-height: 90vh;
+}
+
+nav > ul {
+    margin: 0;
+    padding: 2px;
+    display: block;
+}
+
+.menu {
+    text-align: left;
+    background: #35915d url('CKG350.JPG');
+}
+
+.site-title {
+    padding: 0 100px;
+    vertical-align: middle;
+}
+
+.site-title:before, .site-title:after {
+    display: inline-block;
+    content: '';
+    width: 100px;
+    height: 70px;
+    background: url('/gears.gif') center no-repeat;
+    vertical-align: middle;
+}
+
+header, main, .menu, footer, .newsletter {
+    padding: 4px 10px;
+}
+
+.sidebar {
+    opacity: 0.6;
+    position: absolute;
+    top: 12px;
+    width: 300px;
+    max-height: 100%;
+    overflow: hidden;
+}
+
+.sidebar--left {
+    right: 100%;
+}
+
+.sidebar--right {
+    left: 100%;
+}
+
+footer {
+    background: url('CKG723.JPG');
+}
