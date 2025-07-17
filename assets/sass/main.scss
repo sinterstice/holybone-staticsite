@@ -47,8 +47,15 @@ nav > ul {
     content: '';
     width: 100px;
     height: 70px;
-    background: url('/gears.gif') center no-repeat;
     vertical-align: middle;
+}
+
+.site-title:before {
+    background: url('/skeleton1.gif') center/contain no-repeat;
+}
+
+.site-title:after {
+    background: url('/gears.gif') center/contain no-repeat;
 }
 
 header, main, .menu, footer, .newsletter {
@@ -74,4 +81,12 @@ header, main, .menu, footer, .newsletter {
 
 footer {
     background: url('CKG723.JPG');
+}
+
+#bzz {
+    width: 20px;
+    height: 12px;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
