@@ -7,10 +7,7 @@
     <title>404 Page not found | Holy Bone! Productions</title>
     <link rel="stylesheet" href="/css/style.css" />
     <link rel="stylesheet" href="/css/fonts.css" />
-    
- 
- 
-<link rel="stylesheet" href="http://localhost:1313/main.css">
+     
 <script src="/js/main.js" defer></script>
 
   </head>
@@ -105,7 +102,7 @@
   </footer>
   <script>
   const speed = 5;
-  const rotSpeed = 10;
+  const rotSpeed = 12;
   const padding = 20;
 
   const el = document.createElement('img');
@@ -113,19 +110,19 @@
   el.src = '/fly.gif';
   document.body.appendChild(el);
   function getNormalizedCoords() {
-      const { x, y } = el.getBoundingClientRect();
+      const { offsetLeft, offsetTop } = el;
       return {
-          xMin: -x + padding,
-          xMax: window.innerWidth - x + padding,
-          yMin: -y + padding,
-          yMax: window.innerHeight - y + padding
+          xMin: -offsetLeft + padding,
+          xMax: window.innerWidth - offsetLeft + padding,
+          yMin: -offsetTop + padding,
+          yMax: window.innerHeight - offsetTop + padding
       }
   }
   function randomInRange(min, max) {
       return Math.random() * (max - min) + min;
   }
   function getRandomMode(onlyRotate) {
-      return Math.floor(Math.random() * (onlyRotate ? 2 : 3));
+      return Math.floor(Math.random() * (onlyRotate ? 2 : 4));
   }
   let mode = getRandomMode(); 
   let wait = 0;
@@ -161,8 +158,7 @@
           case 0: {
               updateTransform(x,y,rot-rotSpeed);
 
-              if (Math.random() > 0.95) {
-                  console.log('mode switch');
+              if (Math.random() > 0.90) {
                   mode = getRandomMode();
                   takeABeat();
               }
@@ -171,14 +167,14 @@
           case 1: {
               updateTransform(x,y,rot+rotSpeed);
 
-              if (Math.random() > 0.95) {
-                  console.log('mode switch');
+              if (Math.random() > 0.90) {
                   mode = getRandomMode();
                   takeABeat();
               }
               break;
           }
-          case 2: {
+          case 2: 
+          case 3: {
               const newX = x + Math.cos(Math.PI/180 * rot) * -speed;
               const newY = y + Math.sin(Math.PI/180 * rot) * -speed;
 
@@ -192,7 +188,6 @@
               updateTransform(newX, newY, rot);
 
               if (Math.random() > 0.95) {
-                  console.log('mode switch');
                   mode = getRandomMode();
                   takeABeat();
               }

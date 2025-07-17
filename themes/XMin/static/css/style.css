@@ -47,7 +47,7 @@ th, td { padding: 5px; }
 thead, tfoot, tr:nth-child(even) { background: #eee; }
 
 body {
-    background: #94903b url('super_kamiokande_2.png') top left/contain no-repeat;
+    background: #94903b url('/super_kamiokande_2.png') top left/contain no-repeat;
     position: relative;
 }
 
@@ -68,10 +68,11 @@ button {
 }
 
 .wrap {
-    background: #dcc2a0;
+    background: rgba(220,194,160,0.88);
     color: #311c00;
     overflow: auto;
     min-height: 90vh;
+    text-shadow: 1px 1px 0 rgba(220,194,160,1);
 }
 
 nav > ul {
@@ -82,7 +83,7 @@ nav > ul {
 
 .menu {
     text-align: left;
-    background: #35915d url('CKG350.JPG');
+    background: #35915d url('/CKG350.JPG');
 }
 
 .site-title {
@@ -128,7 +129,7 @@ header, main, .menu, footer, .newsletter {
 }
 
 footer {
-    background: url('CKG723.JPG');
+    background: url('/CKG723.JPG');
 }
 
 #bzz {
