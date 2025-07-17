@@ -114,12 +114,12 @@
   el.src = '/fly.gif';
   document.body.appendChild(el);
   function getNormalizedCoords() {
-      const { x, y } = el.getBoundingClientRect();
+      const { offsetLeft, offsetTop } = el;
       return {
-          xMin: -x + padding,
-          xMax: window.innerWidth - x + padding,
-          yMin: -y + padding,
-          yMax: window.innerHeight - y + padding
+          xMin: -offsetLeft + padding,
+          xMax: window.innerWidth - offsetLeft + padding,
+          yMin: -offsetTop + padding,
+          yMax: window.innerHeight - offsetTop + padding
       }
   }
   function randomInRange(min, max) {
@@ -202,6 +202,11 @@
 
   window.addEventListener('DOMContentLoaded', () => {
       setInterval(crawl, 1000/30);
+  });
+  el.addEventListener('mouseenter', () => {
+      
+      mode = 2;
+      wait = 0;
   });
   </script>
   </body>

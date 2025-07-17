@@ -103,7 +103,7 @@
   <script>
   const speed = 5;
   const rotSpeed = 12;
-  const padding = 20;
+  const padding = 100;
 
   const el = document.createElement('img');
   el.id = 'bzz';
@@ -126,20 +126,23 @@
   }
   let mode = getRandomMode(); 
   let wait = 0;
+
+  function updateTransform(x, y, rot) {
+      const { yMin, yMax, xMin, xMax } = getNormalizedCoords();
+      el.style.transform = `translateX(${Math.min(Math.max(xMin, x), xMax)}px) translateY(${Math.min(Math.max(yMin, y), yMax)}px) rotate(${rot}deg)`;
+  }
+
+  function parseTransform() {
+      const { yMin, yMax, xMin, xMax } = getNormalizedCoords();
+      const [,x,y,rot] = /translateX\(([0-9.-]+)px\) translateY\(([0-9.-]+)px\) rotate\(([0-9.-]+)deg\)/.exec(el.style.transform).map(parseFloat);
+      return {x,y,rot};
+  }
+
   function crawl() {
       const { yMin, yMax, xMin, xMax } = getNormalizedCoords();
 
       function takeABeat() {
           wait = randomInRange(15, 60);
-      }
-
-      function updateTransform(x, y, rot) {
-          el.style.transform = `translateX(${Math.min(Math.max(xMin, x), xMax)}px) translateY(${Math.min(Math.max(yMin, y), yMax)}px) rotate(${rot}deg)`;
-      }
-
-      function parseTransform() {
-          const [,x,y,rot] = /translateX\(([0-9.-]+)px\) translateY\(([0-9.-]+)px\) rotate\(([0-9.-]+)deg\)/.exec(el.style.transform).map(parseFloat);
-          return {x,y,rot};
       }
 
       if (!el.style.transform) {
