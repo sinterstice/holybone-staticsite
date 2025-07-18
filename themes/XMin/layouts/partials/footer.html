@@ -31,11 +31,11 @@
         submit.disabled = true;
         input.disabled = true;
 
-        fetch(new Request('https://tao-te-ching.azurewebsites.net/api/', {
+        fetch(new Request(`listservsignup-dggcdga8a7cbhqbt.eastus2-01.azurewebsites.net/api/Signup?email=${email}`, {
             method: 'POST',
             mode: 'cors',
             body: JSON.stringify({
-                email,
+                tags: ['holy-bone'],
                 timezone
             })
         })).then((res) => {
