@@ -134,12 +134,13 @@ footer {
     background: url('/CKG723.JPG');
 }
 
-#bzz {
+.bzz {
     width: 20px;
     height: 12px;
     position: absolute;
     top: 0;
     left: 0;
+    cursor: pointer;
 }
 
 @media screen and (width < 768px) {

@@ -124,73 +124,101 @@
   const rotSpeed = 12;
   const padding = 100;
 
-  const el = document.createElement('img');
-  el.id = 'bzz';
-  el.src = '/fly.gif';
-  document.body.appendChild(el);
-  function getNormalizedCoords() {
-      const { offsetLeft, offsetTop } = el;
-      return {
-          xMin: -offsetLeft + padding,
-          xMax: window.innerWidth - offsetLeft + padding,
-          yMin: -offsetTop + padding,
-          yMax: window.innerHeight - offsetTop + padding
-      }
-  }
+  let idInt = 0;
+  const bugs = [];
+
   function randomInRange(min, max) {
       return Math.random() * (max - min) + min;
   }
+
   function getRandomMode(onlyRotate) {
       return Math.floor(Math.random() * (onlyRotate ? 2 : 4));
   }
-  let mode = getRandomMode(); 
-  let wait = 0;
 
-  function updateTransform(x, y, rot) {
-      const { yMin, yMax, xMin, xMax } = getNormalizedCoords();
+  function getNormalizedCoords(id) {
+      const el = document.getElementById(id);
+      const { x, y } = el.getBoundingClientRect();
+      return {
+          xMin: -x + padding,
+          xMax: window.innerWidth - x + padding,
+          yMin: -y + padding,
+          yMax: window.innerHeight - x + padding
+      }
+  }
+
+  const hatchBug = () => {
+      const id = `bzz-${idInt}`;
+      idInt++;
+
+      const el = document.createElement('img');
+      el.classList.add('bzz');
+      el.id = id;
+      el.src = '/fly.gif';
+      document.body.appendChild(el);
+
+      bugs.push({
+          id,
+          mode: getRandomMode(), 
+          wait: 0
+      });
+
+      el.addEventListener('click', (e) => {
+          e.preventDefault();
+          hatchBug();
+      });
+  };
+
+  function updateTransform(id, x, y, rot) {
+      const el = document.getElementById(id);
+      const { yMin, yMax, xMin, xMax } = getNormalizedCoords(id);
       el.style.transform = `translateX(${Math.min(Math.max(xMin, x), xMax)}px) translateY(${Math.min(Math.max(yMin, y), yMax)}px) rotate(${rot}deg)`;
   }
 
-  function parseTransform() {
-      const { yMin, yMax, xMin, xMax } = getNormalizedCoords();
+  function parseTransform(id) {
+      const el = document.getElementById(id);
+      const { yMin, yMax, xMin, xMax } = getNormalizedCoords(id);
       const [,x,y,rot] = /translateX\(([0-9.-]+)px\) translateY\(([0-9.-]+)px\) rotate\(([0-9.-]+)deg\)/.exec(el.style.transform).map(parseFloat);
       return {x,y,rot};
   }
 
-  function crawl() {
-      const { yMin, yMax, xMin, xMax } = getNormalizedCoords();
+  function crawl({ id, mode, wait }) {
+      const newState = { id, mode, wait };
+
+      const el = document.getElementById(id);
+
+      const { yMin, yMax, xMin, xMax } = getNormalizedCoords(id);
 
       function takeABeat() {
-          wait = randomInRange(15, 60);
+          newState.wait = randomInRange(15, 60);
       }
 
       if (!el.style.transform) {
           
-          updateTransform(randomInRange(xMin, xMax), randomInRange(yMin, yMax), randomInRange(0, 360));
+          updateTransform(id, randomInRange(xMin, xMax), randomInRange(yMin, yMax), randomInRange(0, 360));
       }
 
       if (wait > 0) {
-          wait -= 1;
-          return;
+          newState.wait -= 1;
+          return newState;
       }
 
-      const {x,y,rot} = parseTransform();
+      const {x,y,rot} = parseTransform(id);
 
       switch(mode) {
           case 0: {
-              updateTransform(x,y,rot-rotSpeed);
+              updateTransform(id, x, y, rot - rotSpeed);
 
               if (Math.random() > 0.90) {
-                  mode = getRandomMode();
+                  newState.mode = getRandomMode();
                   takeABeat();
               }
               break;
           }
           case 1: {
-              updateTransform(x,y,rot+rotSpeed);
+              updateTransform(id, x, y, rot + rotSpeed);
 
               if (Math.random() > 0.90) {
-                  mode = getRandomMode();
+                  newState.mode = getRandomMode();
                   takeABeat();
               }
               break;
@@ -201,23 +229,32 @@
               const newY = y + Math.sin(Math.PI/180 * rot) * -speed;
 
               if (newX >= xMax || newX <= xMin || newY >= yMax || newY <= yMin) {
+                  console.log('hit a wall');
                   
-                  mode = getRandomMode(true);
+                  newState.mode = getRandomMode(true);
               }
 
-              updateTransform(newX, newY, rot);
+              updateTransform(id, newX, newY, rot);
 
               if (Math.random() > 0.95) {
-                  mode = getRandomMode();
+                  newState.mode = getRandomMode();
                   takeABeat();
               }
               break;
           }
       }
+
+      return newState;
   }
 
   window.addEventListener('DOMContentLoaded', () => {
-      setInterval(crawl, 1000/30);
+      hatchBug();
+      setInterval(() => {
+          bugs.forEach((bug, i) => {
+              const newState = crawl(bug);
+              bugs[i] = newState;
+          });
+      }, 1000/30);
   });
   </script>
   </body>
