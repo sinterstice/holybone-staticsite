@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en-us">
   <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
@@ -20,9 +19,9 @@
       <img class="" src="/spinoza.jpg" alt="Portrait of Baruch Spinoza"/>
       </div>
       <div class="sidebar sidebar--right">
-      <img class="" src="/CKG766.JPG" alt="Abstract art"/>
-      <img class="" src="/baby_skull.jpg" alt="Illustration from On The Archetype and Homologies of the Vertibrate Skeleton, by Richard Owen"/>
       <img class="" src="/sacred_theory_of_the_earth.jpg" alt="Frontspiece of Thomas Burnet's Sacred Theory of the Earth"/>
+      <img class="" src="/baby_skull.jpg" alt="Illustration from On The Archetype and Homologies of the Vertibrate Skeleton, by Richard Owen"/>
+      <img class="" src="/CKG766.JPG" alt="Abstract art"/>
       </div>
       <div class="wrap">
         <nav>
@@ -74,11 +73,11 @@
         submit.disabled = true;
         input.disabled = true;
 
-        fetch(new Request('https://tao-te-ching.azurewebsites.net/api/', {
+        fetch(new Request(`https://api.holybone.zone/api/Subscribe?email=${email}`, {
             method: 'POST',
             mode: 'cors',
             body: JSON.stringify({
-                email,
+                tags: ['holy-bone'],
                 timezone
             })
         })).then((res) => {
@@ -107,7 +106,7 @@
   <script>
   const speed = 5;
   const rotSpeed = 12;
-  const padding = 20;
+  const padding = 100;
 
   const el = document.createElement('img');
   el.id = 'bzz';
@@ -130,20 +129,23 @@
   }
   let mode = getRandomMode(); 
   let wait = 0;
+
+  function updateTransform(x, y, rot) {
+      const { yMin, yMax, xMin, xMax } = getNormalizedCoords();
+      el.style.transform = `translateX(${Math.min(Math.max(xMin, x), xMax)}px) translateY(${Math.min(Math.max(yMin, y), yMax)}px) rotate(${rot}deg)`;
+  }
+
+  function parseTransform() {
+      const { yMin, yMax, xMin, xMax } = getNormalizedCoords();
+      const [,x,y,rot] = /translateX\(([0-9.-]+)px\) translateY\(([0-9.-]+)px\) rotate\(([0-9.-]+)deg\)/.exec(el.style.transform).map(parseFloat);
+      return {x,y,rot};
+  }
+
   function crawl() {
       const { yMin, yMax, xMin, xMax } = getNormalizedCoords();
 
       function takeABeat() {
           wait = randomInRange(15, 60);
-      }
-
-      function updateTransform(x, y, rot) {
-          el.style.transform = `translateX(${Math.min(Math.max(xMin, x), xMax)}px) translateY(${Math.min(Math.max(yMin, y), yMax)}px) rotate(${rot}deg)`;
-      }
-
-      function parseTransform() {
-          const [,x,y,rot] = /translateX\(([0-9.-]+)px\) translateY\(([0-9.-]+)px\) rotate\(([0-9.-]+)deg\)/.exec(el.style.transform).map(parseFloat);
-          return {x,y,rot};
       }
 
       if (!el.style.transform) {
@@ -183,8 +185,6 @@
               const newY = y + Math.sin(Math.PI/180 * rot) * -speed;
 
               if (newX >= xMax || newX <= xMin || newY >= yMax || newY <= yMin) {
-                  console.log('hit a wall, force mode switch');
-                  console.log(`x:${newX} y:${newY} xMin:${xMin} xMax:${xMax} yMin:${yMin} yMax:${yMax}`);
                   
                   mode = getRandomMode(true);
               }
@@ -202,11 +202,6 @@
 
   window.addEventListener('DOMContentLoaded', () => {
       setInterval(crawl, 1000/30);
-  });
-  el.addEventListener('mouseenter', () => {
-      
-      mode = 2;
-      wait = 0;
   });
   </script>
   </body>

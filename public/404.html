@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en-us">
   <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
@@ -20,9 +19,9 @@
       <img class="" src="/spinoza.jpg" alt="Portrait of Baruch Spinoza"/>
       </div>
       <div class="sidebar sidebar--right">
-      <img class="" src="/CKG766.JPG" alt="Abstract art"/>
-      <img class="" src="/baby_skull.jpg" alt="Illustration from On The Archetype and Homologies of the Vertibrate Skeleton, by Richard Owen"/>
       <img class="" src="/sacred_theory_of_the_earth.jpg" alt="Frontspiece of Thomas Burnet's Sacred Theory of the Earth"/>
+      <img class="" src="/baby_skull.jpg" alt="Illustration from On The Archetype and Homologies of the Vertibrate Skeleton, by Richard Owen"/>
+      <img class="" src="/CKG766.JPG" alt="Abstract art"/>
       </div>
       <div class="wrap">
         <nav>
@@ -70,11 +69,11 @@
         submit.disabled = true;
         input.disabled = true;
 
-        fetch(new Request('https://tao-te-ching.azurewebsites.net/api/', {
+        fetch(new Request(`https://api.holybone.zone/api/Subscribe?email=${email}`, {
             method: 'POST',
             mode: 'cors',
             body: JSON.stringify({
-                email,
+                tags: ['holy-bone'],
                 timezone
             })
         })).then((res) => {
@@ -182,8 +181,6 @@
               const newY = y + Math.sin(Math.PI/180 * rot) * -speed;
 
               if (newX >= xMax || newX <= xMin || newY >= yMax || newY <= yMin) {
-                  console.log('hit a wall, force mode switch');
-                  console.log(`x:${newX} y:${newY} xMin:${xMin} xMax:${xMax} yMin:${yMin} yMax:${yMax}`);
                   
                   mode = getRandomMode(true);
               }

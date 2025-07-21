@@ -87,6 +87,8 @@ nav > ul {
 }
 
 .site-title {
+    font-family: Papyrus, cursive;
+    font-size: 32px;
     padding: 0 100px;
     vertical-align: middle;
 }
@@ -138,4 +140,15 @@ footer {
     position: absolute;
     top: 0;
     left: 0;
+}
+
+@media screen and (width < 768px) {
+    .site-title {
+        padding: 0;
+        font-size: 25px;
+    }
+
+    .site-title:before, .site-title:after {
+        width: 50px;
+    }
 }
