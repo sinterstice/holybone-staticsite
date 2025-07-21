@@ -76,7 +76,7 @@ button {
     line-height: 1.5;
     background: rgba(220,194,160,0.88);
     color: #311c00;
-    min-height: 90vh;
+    min-height: 100vh;
     text-shadow: 1px 1px 0 rgba(220,194,160,1);
 }
 
