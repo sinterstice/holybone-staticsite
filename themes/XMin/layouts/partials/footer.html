@@ -1,5 +1,5 @@
   <div class="newsletter">
-      <img src="/email2.gif" style="float: left; margin-right: 12px"/>
+      <img src="/email2.gif" style="float: left; margin: 0 12px 12px 0;"/>
       <p>If you would like to be notified about future projects, <b>sign up for our email list:</b></p>
     <form class="email-form" id="signup_form">
     <img src="/email.gif"/>
@@ -32,7 +32,7 @@
         submit.disabled = true;
         input.disabled = true;
 
-        fetch(new Request(`https://api.holybone.zone/api/Subscribe?email=${email}`, {
+        fetch(new Request(`https://api.holybone.zone/api/subscribe?email=${email}`, {
             method: 'POST',
             mode: 'cors',
             body: JSON.stringify({

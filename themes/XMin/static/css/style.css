@@ -143,12 +143,24 @@ footer {
     background: url('/CKG723.JPG');
 }
 
-.email-form * {
-    margin-bottom: 12px;
+.email-form {
+    margin: 12px 0;
+    display: flex;
+    flex-direction: row;
 }
 
 .email-form img {
     vertical-align: bottom;
+}
+
+.email-form input {
+    flex-shrink: 1;
+    min-width: 80px;
+    margin: 0 4px;
+}
+
+.email-form button {
+    min-width: 80px;
 }
 
 .email-label {
@@ -185,5 +197,9 @@ footer {
     .site-title:before, .site-title:after {
         width: 30px;
         height: 22px;
+    }
+
+    .email-form {
+        clear: both;
     }
 }
