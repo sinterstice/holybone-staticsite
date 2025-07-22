@@ -232,4 +232,13 @@ footer {
     .sidebar * {
         margin: 0 10px 0 0;
     }
+
+    .bzz {
+        width: 15px;
+        height: 8px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        cursor: pointer;
+    }
 }
