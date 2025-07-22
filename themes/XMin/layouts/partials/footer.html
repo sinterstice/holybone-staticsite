@@ -62,7 +62,7 @@
   <script>
   const speed = 5;
   const rotSpeed = 12;
-  const padding = 10;
+  const padding = -50;
 
   let idInt = 0;
   const bugs = [];
@@ -71,8 +71,12 @@
       return Math.random() * (max - min) + min;
   }
 
-  function getRandomMode(onlyRotate) {
-      return Math.floor(Math.random() * (onlyRotate ? 2 : 4));
+  function getRandomMode(onlyRotate, hurry) {
+      if (onlyRotate) {
+          return Math.floor(Math.random() * 2);
+      }
+
+      return Math.floor(Math.random() * (hurry ? 6 : 4));
   }
 
   function getNormalizedCoords(id) {
@@ -96,15 +100,29 @@
       el.src = '/fly.gif';
       document.body.appendChild(el);
 
-      bugs.push({
+      const index = bugs.push({
           id,
           mode: getRandomMode(), // 0 = turn left, 1 = turn right, 2-3 = walk forward
-          wait: 0
-      });
+          wait: 0,
+          hurry: false
+      }) - 1;
 
       el.addEventListener('click', (e) => {
+          bugs[index].hurry = true;
           e.preventDefault();
           hatchBug();
+
+          setTimeout(() => {
+              bugs[index].hurry = false;
+          }, 1000);
+      });
+
+      el.addEventListener('mouseenter', (e) => {
+          bugs[index].hurry = true;
+
+          el.addEventListener('mouseleave', (e) => {
+              bugs[index].hurry = false;
+          });
       });
   };
 
@@ -121,15 +139,17 @@
       return {x,y,rot};
   }
 
-  function crawl({ id, mode, wait }) {
-      const newState = { id, mode, wait };
+  function crawl({ id, mode, wait, hurry }) {
+      const newState = { id, mode, wait, hurry };
 
       const el = document.getElementById(id);
 
       const { yMin, yMax, xMin, xMax } = getNormalizedCoords(id);
 
       function takeABeat() {
-          newState.wait = randomInRange(15, 60);
+          if (!hurry) {
+              newState.wait = randomInRange(15, 60);
+          }
       }
 
       if (!el.style.transform) {
@@ -137,7 +157,11 @@
           updateTransform(id, randomInRange(xMin, xMax), randomInRange(yMin, yMax), randomInRange(0, 360));
       }
 
-      if (wait > 0) {
+      if (hurry) {
+          newState.wait = 0;
+      }
+
+      if (newState.wait > 0) {
           newState.wait -= 1;
           return newState;
       }
@@ -149,7 +173,7 @@
               updateTransform(id, x, y, rot - rotSpeed);
 
               if (Math.random() > 0.90) {
-                  newState.mode = getRandomMode();
+                  newState.mode = getRandomMode(false, hurry);
                   takeABeat();
               }
               break;
@@ -158,25 +182,27 @@
               updateTransform(id, x, y, rot + rotSpeed);
 
               if (Math.random() > 0.90) {
-                  newState.mode = getRandomMode();
+                  newState.mode = getRandomMode(false, hurry);
                   takeABeat();
               }
               break;
           }
           case 2: 
-          case 3: {
+          case 3: 
+          case 4:
+          case 5: {
               const newX = x + Math.cos(Math.PI/180 * rot) * -speed;
               const newY = y + Math.sin(Math.PI/180 * rot) * -speed;
 
               if (newX >= xMax || newX <= xMin || newY >= yMax || newY <= yMin) {
                   // stop moving, force switch to rotate mode
-                  newState.mode = getRandomMode(true);
+                  newState.mode = getRandomMode(true, hurry);
               }
 
               updateTransform(id, newX, newY, rot);
 
               if (Math.random() > 0.95) {
-                  newState.mode = getRandomMode();
+                  newState.mode = getRandomMode(false, hurry);
                   takeABeat();
               }
               break;
