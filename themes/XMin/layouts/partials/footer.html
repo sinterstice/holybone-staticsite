@@ -187,6 +187,46 @@
       return newState;
   }
 
+  function updateSidebarScroll() {
+      const speed = 1;
+
+      const el = document.getElementById('sidebar');
+      const isHorizontal = el.classList.contains('horizontal');
+      const newScroll = (isHorizontal ? el.scrollLeft : el.scrollTop) + speed;
+
+      if (newScroll >= (isHorizontal ? el.scrollLeftMax : el.scrollTopMax)) {
+          const firstImg = document.querySelector('#sidebar img');
+          const placeholder = document.createElement('div');
+          placeholder.style.width = `${firstImg.width}px`;
+          placeholder.style.height = `${firstImg.height}px`;
+          placeholder.style.marginBottom = '10px';
+          el.prepend(placeholder);
+          el.removeChild(firstImg);
+          el.appendChild(firstImg);
+      } else {
+          if (isHorizontal) {
+              el.scrollLeft = newScroll;
+          } else {
+              el.scrollTop = newScroll;
+          }
+      }
+
+  }
+
+  let timer;
+
+  window.addEventListener('resize', () => {
+      // quick n dirty debounce
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+          if (window.innerWidth > 768) {
+              document.getElementById('sidebar').classList.remove('horizontal');
+          } else {
+              document.getElementById('sidebar').classList.add('horizontal');
+          }
+      }, 5);
+  });
+
   window.addEventListener('DOMContentLoaded', () => {
       hatchBug();
       setInterval(() => {
@@ -194,9 +234,26 @@
               const newState = crawl(bug);
               bugs[i] = newState;
           });
+
+          updateSidebarScroll();
       }, 1000/30);
+
+      if (window.innerWidth < 768) {
+          document.getElementById('sidebar').classList.add('horizontal');
+      }
   });
   </script>
+  </div> <!-- /content -->
+  <div id="sidebar" class="sidebar">
+      <img src="/vertebrate_homologies.jpg" alt="Illustration from On The Archetype and Homologies of the Vertibrate Skeleton, by Richard Owen"/>
+      <img src="/BKG590.JPG" alt="Computer Generated Image of an Island"/>
+      <img src="/the_ambassadors.jpg" alt="The Ambassadors, by Hans Holbein"/>
+      <img src="/spinoza.jpg" alt="Portrait of Baruch Spinoza"/>
+      <img src="/baby_skull.jpg" alt="Illustration from On The Archetype and Homologies of the Vertibrate Skeleton, by Richard Owen"/>
+      <img src="/CKG766.JPG" alt="Abstract art"/>
+      <img src="/sacred_theory_of_the_earth.jpg" alt="Frontspiece of Thomas Burnet's Sacred Theory of the Earth"/>
+  </div>
+  </div>
   </div> <!-- /wrap -->
   </body>
 </html>
