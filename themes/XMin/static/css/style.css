@@ -52,6 +52,7 @@ body {
 }
 
 h1 {
+    font-family: Papyrus, cursive;
     margin: 0 0 12px;
 }
 
@@ -120,7 +121,6 @@ nav > ul {
 }
 
 .site-title {
-    font-family: Papyrus, cursive;
     font-size: 32px;
     padding: 0 100px;
     vertical-align: middle;

@@ -1,4 +1,4 @@
-baseURL = 'https://example.org/'
+baseURL = 'https://holybone.zone/'
 languageCode = 'en-us'
 title = 'Holy Bone! Productions'
 theme = 'XMin'
@@ -6,5 +6,11 @@ theme = 'XMin'
     [[menus.main]]
         name = 'Home'
         pageRef = '/'
+        weight = 10
+    [[menus.main]]
+        name = 'Contact'
+        pageRef = '/contact'
+        weight = 20
+
 [markup.goldmark.renderer]
 unsafe= true

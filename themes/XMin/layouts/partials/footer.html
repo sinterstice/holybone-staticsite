@@ -169,8 +169,7 @@
               const newY = y + Math.sin(Math.PI/180 * rot) * -speed;
 
               if (newX >= xMax || newX <= xMin || newY >= yMax || newY <= yMin) {
-                  console.log('hit a wall');
-                  // stop moving, switch to rotate mode
+                  // stop moving, force switch to rotate mode
                   newState.mode = getRandomMode(true);
               }
 
