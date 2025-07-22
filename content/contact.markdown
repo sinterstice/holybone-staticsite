@@ -1,5 +1,5 @@
 ---
-title: "Contact Holy Bone! Productions"
+title: "Contact Us"
 draft: false
 ---
 

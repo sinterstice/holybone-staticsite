@@ -54,6 +54,7 @@ body {
 
 h1 {
     font-family: Papyrus, cursive;
+    font-size: 32px;
     margin: 0 0 12px;
 }
 
@@ -79,6 +80,7 @@ button {
 }
 
 .content {
+    flex-grow: 1;
     display: flex;
     flex-direction: column;
     line-height: 1.5;
@@ -121,13 +123,14 @@ nav > ul {
     background: #35915d url('/CKG350.JPG');
 }
 
-.site-title {
+.title {
     font-size: 32px;
-    padding: 0 100px;
+    margin: 0 auto 12px;
+    text-align: center;
     vertical-align: middle;
 }
 
-.site-title:before, .site-title:after {
+.title:before, .title:after {
     display: inline-block;
     content: '';
     width: 100px;
@@ -135,11 +138,11 @@ nav > ul {
     vertical-align: middle;
 }
 
-.site-title:before {
+.title:before {
     background: url('/skeleton1.gif') center/contain no-repeat;
 }
 
-.site-title:after {
+.title:after {
     background: url('/gears.gif') center/contain no-repeat;
 }
 
@@ -203,13 +206,13 @@ footer {
         margin: 0 -4px;
     }
 
-    .site-title {
+    .title {
         padding: 0;
         font-size: 22px;
         text-align: center;
     }
 
-    .site-title:before, .site-title:after {
+    .title:before, .title:after {
         width: 30px;
         height: 22px;
     }
