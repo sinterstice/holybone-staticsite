@@ -8,6 +8,7 @@
     <button type="submit" id="signup_submit">SIGN UP</button>
     <p id="signup_result"></p>
     </form>
+    <audio id="splat" src="/splat.mp3"></audio>
     <script>
     const form = document.querySelector('#signup_form');
     const input = document.querySelector('#signup_email');
@@ -60,9 +61,11 @@
   {{ end }}
   </footer>
   <script>
+  const soundEl = document.getElementById('splat');
   const speed = 5;
   const rotSpeed = 12;
   const padding = -50;
+  const cssPadding = 8;
 
   let idInt = 0;
   const bugs = [];
@@ -80,13 +83,11 @@
   }
 
   function getNormalizedCoords(id) {
-      const el = document.getElementById(id);
-      const { x, y } = el.getBoundingClientRect();
       return {
-          xMin: -x + padding,
-          xMax: document.body.clientWidth - x + padding,
-          yMin: -y + padding,
-          yMax: document.body.clientHeight - x + padding
+          xMin: padding + cssPadding, // Screen 0 and body tag 0 are not the same place bc border box stuffs
+          xMax: (document.body.clientWidth + padding),
+          yMin: padding + cssPadding,
+          yMax: (document.body.clientHeight + padding)
       }
   }
 
@@ -108,13 +109,12 @@
       }) - 1;
 
       el.addEventListener('click', (e) => {
-          bugs[index].hurry = true;
           e.preventDefault();
+          bugs[index].squished = true;
+          soundEl.play();
+          el.parentNode.removeChild(el);
           hatchBug();
-
-          setTimeout(() => {
-              bugs[index].hurry = false;
-          }, 1000);
+          hatchBug();
       });
 
       el.addEventListener('mouseenter', (e) => {
@@ -139,8 +139,12 @@
       return {x,y,rot};
   }
 
-  function crawl({ id, mode, wait, hurry }) {
-      const newState = { id, mode, wait, hurry };
+  function crawl({ id, mode, wait, hurry, squished }) {
+      const newState = { id, mode, wait, hurry, squished };
+
+      if (squished) {
+          return newState;
+      }
 
       const el = document.getElementById(id);
 
@@ -195,6 +199,8 @@
               const newY = y + Math.sin(Math.PI/180 * rot) * -speed;
 
               if (newX >= xMax || newX <= xMin || newY >= yMax || newY <= yMin) {
+                  console.log('hit a wall');
+                  // hit a wall
                   // stop moving, force switch to rotate mode
                   newState.mode = getRandomMode(true, hurry);
               }
