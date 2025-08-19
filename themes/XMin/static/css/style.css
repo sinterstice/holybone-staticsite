@@ -92,7 +92,7 @@ button {
 .sidebar {
     width: 150px;
     flex-shrink: 0;
-    max-height: 100vh;
+    height: 100vh;
     overflow-y: scroll;
     margin-left: 12px;
     display: flex;
@@ -153,6 +153,10 @@ main {
     flex-grow: 1;
 }
 
+main h1 {
+    clear: both;
+}
+
 .content {
 }
 
@@ -202,6 +206,17 @@ footer {
     top: 0;
     left: 0;
     cursor: pointer;
+}
+
+.figure-side {
+    background: #fefefe;
+    padding: 16px;
+    box-shadow: 2px 2px 2px rgba(0,0,0,0.3);
+    max-width: 300px;
+    float: right;
+    text-shadow: none;
+    font-size: .8em;
+    margin: 0 0 12px 12px;
 }
 
 @media screen and (width < 768px) {
