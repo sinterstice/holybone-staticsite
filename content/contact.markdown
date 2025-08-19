@@ -1,6 +1,5 @@
 ---
 title: "Contact Us"
-draft: false
 ---
 
 For any inquiries, send an email to:
