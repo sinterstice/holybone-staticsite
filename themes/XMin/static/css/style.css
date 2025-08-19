@@ -188,6 +188,11 @@ footer {
   position: absolute;
   white-space: nowrap; 
   width: 1px;
+
+}
+
+#signup_result {
+    margin-left: 8px;
 }
 
 .bzz {

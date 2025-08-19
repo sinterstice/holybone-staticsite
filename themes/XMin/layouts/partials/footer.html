@@ -30,6 +30,8 @@
             return;
         }
 
+        const originalSubmitText = submit.innerText;
+        submit.innerText = 'Waiting...';
         submit.disabled = true;
         input.disabled = true;
 
@@ -48,7 +50,12 @@
 
             result.innerText = resultMessage;
         }, (failure) => {
+            submit.innerText = originalSubmitText;
             result.innerText = 'So sorry. Something went wrong.';
+        }).finally(() => {
+            submit.innerText = originalSubmitText;
+            input.disabled = false;
+            submit.disabled = false;
         });
     });
     </script>
