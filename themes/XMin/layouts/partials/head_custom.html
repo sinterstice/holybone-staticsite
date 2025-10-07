@@ -1,2 +1,10 @@
+<link rel="stylesheet" href="{{ "css/style.css" | relURL }}" />
+<link rel="stylesheet" href="{{ "css/fonts.css" | relURL }}" />
+
 {{ $js := resources.Get "js/main.js" | js.Build }} 
 <script src="{{ $js.RelPermalink }}" defer></script>
+
+{{ if .Page.Param "has_gallery" }}
+<link rel="stylesheet" href="{{ "css/photoswipe.css" | relURL }}" />
+{{ end }}
+

@@ -1,0 +1,12 @@
+<div class="photoswipe-gallery">
+    {{ .Inner }}
+</div>
+<script type="module">
+import PhotoSwipeLightbox from '/photoswipe/photoswipe-lightbox.esm.js';
+const lightbox = new PhotoSwipeLightbox({
+  gallery: '.photoswipe-gallery',
+  children: 'a',
+  pswpModule: () => import('/photoswipe/photoswipe.esm.js')
+});
+lightbox.init();
+</script>

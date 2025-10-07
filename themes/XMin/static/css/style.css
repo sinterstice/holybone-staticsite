@@ -70,6 +70,10 @@ button {
     color: white;
 }
 
+.clearfix {
+    clear: both;
+}
+
 .wrap {
     display: flex;
     flex-direction: row;
@@ -217,6 +221,33 @@ footer {
     text-shadow: none;
     font-size: .8em;
     margin: 0 0 12px 12px;
+}
+
+.figure-side--left {
+    float: left;
+    margin: 0 12px 12px 0;
+}
+
+.cast-list img {
+    float: left;
+    margin: 0 12px 12px 0;
+    border: 5px solid #eee;
+}
+
+.cast-list h3 {
+    margin-top: 0;
+}
+
+.photoswipe-gallery {
+    width: 100%;
+    margin: 1.8rem 0;
+    display: flex;
+    gap: 1.2rem;
+    flex-wrap: wrap;
+}
+
+.photoswipe-gallery img {
+    max-width: 200px;
 }
 
 @media screen and (width < 768px) {
