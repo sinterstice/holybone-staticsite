@@ -8,7 +8,7 @@ MINISTRY is an immersive horror experience set in a surgical demonstration in 18
 
 ## Watch MINISTRY
 
-[**Available to watch for free here!**](https://drive.google.com/file/d/1d2PgK-cdp-9vn9midK0UQ1bvMvohwT_I/view?usp=sharing)
+[**Available to watch for free here!**](https://youtu.be/hrEu45-NLKE)
 
 ## Photo gallery
 
