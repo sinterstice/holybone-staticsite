@@ -12,7 +12,7 @@ Some of us remember a different vision of the web. One where you could be anyone
 
 That internet is out there still. Between the broken links and dead forums, the deprecated plugins and abandoned code bases, there's a map waiting to be reconstructed, a path to a lost future. We at Holy Bone! Productions are embarking on a journey to explore and document that lost future, so recently and thoughtlessly abandoned, in hopes that the past can show us a way forward: a way out of the culture wars and brain rot, a way to a world that puts the free development of every individual above the profits of platform holders. 
 
-That project can only be one that belongs to all of us. We need your memories, your dreams and failures to piece it together. We'd love to hear anything you'd like to share about what the internet has meant to you, good or bad, lost or thriving.
+That project can only be one that belongs to all of us. We need your memories, your dreams, your failures to piece it together. We'd love to hear anything you'd like to share about what the internet has meant to you, good or bad, lost or thriving.
 
 *Note: All fields are optional. Your answers can be as long or as short as you like. You are safe to close the page; your answers will be cached in your local browser until you submit.*
 
@@ -134,9 +134,9 @@ form.addEventListener('submit', (e) => {
     })).then((res) => {
         let resultMessage = 'So sorry. Something went wrong.';
         if (res.ok) {
+            window.localStorage.clear();
             resultMessage = 'Success! You have signed up';
         }
-        window.localStorage.clear();
         result.innerText = resultMessage;
     }, (failure) => {
         submit.innerText = originalSubmitText;
