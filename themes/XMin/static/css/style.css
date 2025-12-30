@@ -1,4 +1,6 @@
 body {
+    background: #94903b url('/super_kamiokande_2.png') top left/contain no-repeat;
+    position: relative;
     box-sizing: border-box;
 }
 
@@ -47,18 +49,13 @@ table thead th { border-bottom: 1px solid #ddd; }
 th, td { padding: 5px; }
 thead, tfoot, tr:nth-child(even) { background: #eee; }
 
-body {
-    background: #94903b url('/super_kamiokande_2.png') top left/contain no-repeat;
-    position: relative;
-}
-
 h1 {
     font-family: Papyrus, cursive;
     font-size: 32px;
     margin: 0 0 12px;
 }
 
-input {
+input[type="text"], input[type="email"] {
     appearance: none;
     border: 4px solid ridge;
 }
@@ -89,7 +86,7 @@ button {
     flex-direction: column;
     line-height: 1.5;
     background: rgba(220,194,160,0.88);
-    color: #311c00;
+    color: #140c00;
     text-shadow: 1px 1px 0 rgba(220,194,160,1);
 }
 
@@ -162,6 +159,10 @@ main h1 {
 }
 
 .content {
+}
+
+.required {
+    color: red;
 }
 
 footer {

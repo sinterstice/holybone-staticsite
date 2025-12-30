@@ -1,3 +1,4 @@
+{{ if not (.Page.Param "hide_newsletter") }}
   <div class="newsletter">
       <img src="/email2.gif" style="float: left; margin: 0 12px 12px 0;"/>
       <p>If you would like to be notified about future projects, <b>sign up for our email list:</b></p>
@@ -8,7 +9,6 @@
     <button type="submit" id="signup_submit">SIGN UP</button>
     <p id="signup_result"></p>
     </form>
-    <audio id="splat" src="/splat.mp3"></audio>
     <script>
     const form = document.querySelector('#signup_form');
     const input = document.querySelector('#signup_email');
@@ -60,7 +60,9 @@
     });
     </script>
   </div>   
+{{ end }}
   <footer>
+<audio id="splat" src="/splat.mp3"></audio>
   {{ partial "foot_custom.html" . }}
   {{ with .Site.Params.footer }}
   <hr/>
