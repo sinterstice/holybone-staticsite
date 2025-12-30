@@ -126,7 +126,6 @@ form.addEventListener('submit', (e) => {
     const originalSubmitText = submit.innerText;
     submit.innerText = 'Waiting...';
     submit.disabled = true;
-    input.disabled = true;
     console.log(body);
     fetch(new Request(`https://api.holybone.zone/api/interview`, {
         method: 'POST',
@@ -144,7 +143,6 @@ form.addEventListener('submit', (e) => {
         result.innerText = 'So sorry. Something went wrong.';
     }).finally(() => {
         submit.innerText = originalSubmitText;
-        input.disabled = false;
         submit.disabled = false;
     });
 });
