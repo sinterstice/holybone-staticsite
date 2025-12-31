@@ -112,6 +112,17 @@ min-height: 4rem;
         <p id="result"></p>
     </form>
 <script>
+function sanitizeLabel(label) {
+    return Array.from(label.trim().toLowerCase()).map((c) => {
+        if (/[a-zA-Z0-9]/.test(c)) {
+            return c;
+        }
+        if (/\s/.test(c)) {
+            return '_';
+        }
+        return '';
+    }).filter(Boolean).join('').substring(0, 1023);
+}
 const form = document.querySelector('#interview-form');
 const submit = document.querySelector('#submit');
 const result = document.querySelector('#result');
@@ -119,14 +130,14 @@ form.addEventListener('submit', (e) => {
     e.preventDefault();
     const body = {};
     Array.from(document.querySelectorAll('.form-value')).forEach((el) => {
+        const label = el.parentElement.querySelector('span')?.textContent || el.id;
         const value = el.value;
-        const id = el.id;
-        body[id] = value;
+        body[sanitizeLabel(label)] = value;
     });
+    body.date = new Date().toISOString();
     const originalSubmitText = submit.innerText;
     submit.innerText = 'Waiting...';
     submit.disabled = true;
-    console.log(body);
     fetch(new Request(`https://api.holybone.zone/api/interview`, {
         method: 'POST',
         mode: 'cors',
@@ -135,7 +146,7 @@ form.addEventListener('submit', (e) => {
         let resultMessage = 'So sorry. Something went wrong.';
         if (res.ok) {
             window.localStorage.clear();
-            resultMessage = 'Success! You have signed up';
+            resultMessage = 'Success! Thank you for your submission!';
         }
         result.innerText = resultMessage;
     }, (failure) => {
