@@ -8,6 +8,13 @@ Nothing on the horizon just now; stay tuned.
 
 # Past
 
+## Clown Church Sermon
+### April 2026
+
+My message to a world on the brink of Apocalypse.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/wg-rcao2I2s?si=lm5XJZLHSeYOnt0q" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
 ## [MINISTRY; Or, The Surgical Revelation](/ministry)
 ### September 2025
 
